@@ -3,6 +3,8 @@ package com.lawrence.expensetrackerapi.controller;
 import com.lawrence.expensetrackerapi.entity.Expense;
 import com.lawrence.expensetrackerapi.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +15,8 @@ public class ExpenseController {
     private ExpenseService expenseService;
 
     @GetMapping("/expenses")
-    public List<Expense> getAllExpense(){
-        return expenseService.getAllExpenses();
+    public List<Expense> getAllExpense(Pageable page){
+        return expenseService.getAllExpenses(page).toList();
     }
     @GetMapping("/expenses/{id}")
     public Expense getExpenseById(@PathVariable("id") Long id){
